@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
@@ -68,15 +69,40 @@ export default function Chatbot() {
                 key={i}
                 className={`mb-2 ${m.origin === "human" ? "text-end" : ""}`}
               >
-                <span
+                <div
                   className={`d-inline-block px-3 py-2 rounded-3 ${
                     m.origin === "human"
                       ? "bg-dark text-white"
                       : "bg-light text-dark"
                   }`}
+                  style={{ maxWidth: "85%", textAlign: "left" }}
                 >
-                  {m.text}
-                </span>
+                  {m.origin === "bot" ? (
+                    <ReactMarkdown
+                      components={{
+                        p: ({ children }) => <p className="mb-2">{children}</p>,
+                        ul: ({ children }) => (
+                          <ul className="mb-2 ps-4">{children}</ul>
+                        ),
+                        ol: ({ children }) => (
+                          <ol className="mb-2 ps-4">{children}</ol>
+                        ),
+                        li: ({ children }) => (
+                          <li className="mb-1">{children}</li>
+                        ),
+                        a: ({ children, href }) => (
+                          <a href={href} target="_blank" rel="noreferrer">
+                            {children}
+                          </a>
+                        ),
+                      }}
+                    >
+                      {m.text}
+                    </ReactMarkdown>
+                  ) : (
+                    m.text
+                  )}
+                </div>
               </div>
             ))}
 
