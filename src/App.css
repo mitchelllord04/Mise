@@ -1,0 +1,208 @@
+html,
+body,
+#root {
+  height: 100%;
+}
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+.nav-item {
+  margin: 0.85rem;
+  font-size: 1.1rem;
+}
+
+.signout button {
+  color: red !important;
+}
+
+.add-btn {
+  width: 2.5rem;
+  height: 2.5rem;
+
+  border-radius: 50%;
+  border: 1.5px solid #000;
+  background: #fff;
+
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+}
+
+.add-btn::before,
+.add-btn::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background: #000;
+  transform: translate(-50%, -50%);
+}
+
+.add-btn::before {
+  width: 1.1rem; /* horizontal bar length */
+  height: 0.13rem; /* bar thickness */
+}
+
+.add-btn::after {
+  width: 0.13rem; /* bar thickness */
+  height: 1.1rem; /* vertical bar length */
+}
+
+.add-btn:hover {
+  background: #212529;
+  border-color: #212529;
+}
+
+.add-btn:hover::before,
+.add-btn:hover::after {
+  background: #fff;
+}
+
+.add-btn2 {
+  width: 1.75rem;
+  height: 1.75rem;
+
+  border-radius: 50%;
+  border: 1.5px solid #212529;
+  background: #fff;
+  color: transparent;
+
+  position: relative;
+  padding: 0;
+  cursor: pointer;
+}
+
+.add-btn2::before {
+  content: "+";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -55%);
+  color: #212529;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1;
+}
+
+.add-btn2:hover {
+  background: #212529;
+}
+
+.add-btn2:hover::before {
+  color: #fff;
+}
+
+.delete-btn {
+  width: 2em;
+  height: 2em;
+  border-radius: 50%;
+  border: 0.1em solid currentColor;
+  background: transparent;
+  padding: 0;
+  line-height: 1;
+  font-size: 0.9rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.delete-btn:hover {
+  background-color: red;
+  color: white;
+}
+.ingredient-card {
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.ingredient-card:hover {
+  border-color: black !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-weight: 500;
+}
+
+.tags-field {
+  min-height: calc(2.375rem + 2px);
+  height: auto;
+}
+
+.recipe-card {
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.recipe-card:hover {
+  transform: translateY(-6px);
+  box-shadow:
+    0 6px 18px rgba(0, 0, 0, 0.1),
+    0 14px 32px rgba(0, 0, 0, 0.14);
+}
+
+.recipe-card img {
+  box-shadow: 0 4px 6px -4px rgba(0, 0, 0, 0.15);
+}
+
+.placeholder-img {
+  height: 200px;
+  background-color: #f3f3f3;
+  font-size: 3rem;
+}
+
+.favorite-btn {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  width: 2.25rem;
+  height: 2.25rem;
+
+  border-radius: 50%;
+  border: 1.5px solid #ddd;
+
+  background: white;
+  color: #bbb;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1.1rem;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.05);
+  border-color: red;
+  color: red;
+}
+
+.favorite-btn i {
+  transition: color 0.2s ease;
+}
+
+.favorite-btn.active i {
+  color: red;
+}
