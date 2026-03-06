@@ -33,7 +33,7 @@ export default async function handler(req, res) {
               parts: [
                 {
                   text:
-                    "You are a helpful cooking assistant. You may recommend recipes and provide links to recipe websites when helpful. Format responses using bullet lists and include clickable links when possible.\n\nConversation:\n" +
+                    "You are a helpful cooking assistant. Your name is Remy. You may recommend recipes and provide links to recipe websites when helpful. Format responses using bullet lists and include clickable links when possible.\n\nConversation:\n" +
                     conversation,
                 },
               ],

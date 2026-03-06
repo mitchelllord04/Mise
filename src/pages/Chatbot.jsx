@@ -3,7 +3,10 @@ import ReactMarkdown from "react-markdown";
 
 export default function Chatbot() {
   const [messages, setMessages] = useState([
-    { origin: "bot", text: "Ask me anything food-related." },
+    {
+      origin: "bot",
+      text: "Hi! Welcome to Mise. I'm Remy, your kitchen assistant. Ask me anything food-related.",
+    },
   ]);
   const [text, setText] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -58,7 +61,7 @@ export default function Chatbot() {
     <div className="container py-4">
       <div className="card rounded-4 shadow-sm">
         <div className="card-body">
-          <h4 className="mb-3">Food Chatbot</h4>
+          <h4 className="mb-3">Remy</h4>
 
           <div
             className="border rounded-3 p-3 mb-3"
