@@ -28,7 +28,7 @@ function Add() {
   const [ingredient, setIngredient] = useState({
     name: "",
     quantity: "",
-    units: "tsp",
+    units: "",
   });
 
   const canAddIngredient =
@@ -100,7 +100,7 @@ function Add() {
     }));
 
     setIngredientFormOpen(false);
-    setIngredient({ name: "", quantity: "", units: "tsp" });
+    setIngredient({ name: "", quantity: "", units: "" });
   };
 
   const handleAddInstruction = () => {
@@ -185,7 +185,7 @@ function Add() {
       setIngredientFormOpen(false);
       setInstructionFormOpen(false);
       setTagsOpen(false);
-      setIngredient({ name: "", quantity: "", units: "tsp" });
+      setIngredient({ name: "", quantity: "", units: "" });
       setInstruction("");
       setImageFile(null);
       if (imagePreview) URL.revokeObjectURL(imagePreview);
@@ -234,6 +234,17 @@ function Add() {
     if (parts.length === 0) return "";
 
     return parts.join(" ");
+  };
+
+  const formatIngredient = (ingredient) => {
+    const quantity = String(ingredient.quantity ?? "").trim();
+    const unit = String(ingredient.units ?? "").trim();
+    const name = String(ingredient.name ?? "").trim();
+
+    const hiddenUnits = ["", "each"];
+    const shownUnit = hiddenUnits.includes(unit) ? "" : unit;
+
+    return [quantity, shownUnit, name].filter(Boolean).join(" ");
   };
 
   return (
@@ -543,7 +554,7 @@ function Add() {
                     style={{ maxWidth: "50rem", margin: "0 auto" }}
                   >
                     <div className="flex-grow-1 text-center">
-                      {ingredient.quantity} {ingredient.units} {ingredient.name}
+                      {formatIngredient(ingredient)}
                     </div>
 
                     <button
@@ -669,9 +680,10 @@ function Add() {
                       <label className="mb-2"> Quantity </label>
                       <div className="input-group">
                         <input
-                          type="number"
+                          type="text"
+                          inputMode="decimal"
                           className="form-control"
-                          placeholder="e.g. 2"
+                          placeholder="e.g. 2, 1/2, 1 1/2"
                           value={ingredient.quantity}
                           onChange={(e) =>
                             setIngredient((prev) => ({
@@ -694,40 +706,41 @@ function Add() {
                             }))
                           }
                         >
-                          <option value="tsp">Teaspoon (tsp)</option>
-                          <option value="tbsp">Tablespoon (tbsp)</option>
-                          <option value="floz">Fluid Ounce (fl oz)</option>
-                          <option value="cup">Cup</option>
-                          <option value="pint">Pint</option>
-                          <option value="quart">Quart</option>
-                          <option value="gallon">Gallon</option>
-                          <option value="ml">Milliliter (mL)</option>
-                          <option value="l">Liter (L)</option>
+                          <option value="" disabled selected>
+                            Select unit
+                          </option>
+                          <option value="">No unit</option>
 
-                          <option value="oz">Ounce (oz)</option>
-                          <option value="lb">Pound (lb)</option>
-                          <option value="g">Gram (g)</option>
-                          <option value="kg">Kilogram (kg)</option>
+                          <option disabled>Volume</option>
+                          <option value="tsp">tsp</option>
+                          <option value="tbsp">tbsp</option>
+                          <option value="cup">cup</option>
+                          <option value="fl oz">fl oz</option>
+                          <option value="ml">ml</option>
+                          <option value="l">l</option>
 
-                          <option value="each">Each</option>
-                          <option value="clove">Clove</option>
-                          <option value="slice">Slice</option>
-                          <option value="piece">Piece</option>
-                          <option value="stick">Stick</option>
-                          <option value="can">Can</option>
-                          <option value="bottle">Bottle</option>
-                          <option value="package">Package</option>
-                          <option value="jar">Jar</option>
-                          <option value="bunch">Bunch</option>
-                          <option value="head">Head</option>
-                          <option value="sprig">Sprig</option>
-                          <option value="fillet">Fillet</option>
+                          <option disabled>Weight</option>
+                          <option value="oz">oz</option>
+                          <option value="lb">lb</option>
+                          <option value="g">g</option>
+                          <option value="kg">kg</option>
 
-                          <option value="pinch">Pinch</option>
-                          <option value="dash">Dash</option>
-                          <option value="drop">Drop</option>
-                          <option value="handful">Handful</option>
-                          <option value="taste">To taste</option>
+                          <option disabled>Count</option>
+                          <option value="each">each</option>
+                          <option value="clove">clove</option>
+                          <option value="slice">slice</option>
+                          <option value="piece">piece</option>
+                          <option value="stick">stick</option>
+                          <option value="can">can</option>
+                          <option value="jar">jar</option>
+                          <option value="package">package</option>
+
+                          <option disabled>Other</option>
+                          <option value="bunch">bunch</option>
+                          <option value="head">head</option>
+                          <option value="pinch">pinch</option>
+                          <option value="dash">dash</option>
+                          <option value="to taste">to taste</option>
                         </select>
                       </div>
                     </div>
