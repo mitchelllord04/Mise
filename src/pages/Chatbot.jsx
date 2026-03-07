@@ -58,7 +58,7 @@ export default function Chatbot() {
   };
 
   return (
-    <div className="container py-4">
+    <div className="container py-4 my-2">
       <div className="card rounded-4 shadow-sm">
         <div className="card-body">
           <h4 className="mb-3">Remy</h4>

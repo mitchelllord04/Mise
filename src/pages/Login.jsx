@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { signIn } from "../auth/authApi";
+import { signIn, signInWithGoogle } from "../auth/authApi";
 import PasswordField from "../components/PasswordField";
 
 function Login() {
@@ -15,6 +15,17 @@ function Login() {
 
     try {
       await signIn(email, password);
+      navigate("/home", { replace: true });
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  const handleGoogleLogin = async () => {
+    setError("");
+
+    try {
+      await signInWithGoogle();
       navigate("/home", { replace: true });
     } catch (err) {
       setError(err.message);
@@ -65,6 +76,19 @@ function Login() {
 
               <button type="submit" className="btn btn-primary">
                 Login
+              </button>
+
+              <button
+                type="button"
+                className="btn btn-light border w-100 d-flex align-items-center justify-content-center gap-2"
+                onClick={handleGoogleLogin}
+              >
+                <img
+                  src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
+                  alt="Google"
+                  style={{ width: 18 }}
+                />
+                Sign in with Google
               </button>
 
               <button

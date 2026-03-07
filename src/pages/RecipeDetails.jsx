@@ -3,6 +3,8 @@ import { useAuth } from "../context/useAuth";
 import { getRecipe, deleteRecipe } from "../services/recipes";
 import { useEffect, useState } from "react";
 
+import placeholder from "../assets/placeholder.png";
+
 function RecipeDetails() {
   const { user, loading } = useAuth();
   const { recipeId } = useParams();
@@ -22,9 +24,23 @@ function RecipeDetails() {
 
     const parts = [];
 
-    if (days) parts.push(`${days}d`);
-    if (hours) parts.push(`${hours}hr`);
-    if (minutes) parts.push(`${minutes}min`);
+    if (days) parts.push(`${days} d`);
+    if (hours) parts.push(`${hours} hr`);
+    if (minutes) parts.push(`${minutes} min`);
+
+    return parts.join(" ");
+  };
+
+  const formatTime = (total) => {
+    const days = Math.floor(total / 1440);
+    const hours = Math.floor((total % 1440) / 60);
+    const minutes = total % 60;
+
+    const parts = [];
+
+    if (days) parts.push(`${days} d`);
+    if (hours) parts.push(`${hours} hr`);
+    if (minutes) parts.push(`${minutes} min`);
 
     return parts.join(" ");
   };
@@ -199,7 +215,19 @@ function RecipeDetails() {
             <div className="position-sticky" style={{ top: "1rem" }}>
               <div className="card rounded-4 shadow-sm">
                 <div className="card-body">
-                  <h5 className="mb-3">Details</h5>
+                  <img
+                    src={recipe.imageUrl ? recipe.imageUrl : placeholder}
+                    className="card-img-top mb-2"
+                    alt="Recipe"
+                    style={{
+                      height: "200px",
+                      objectFit: "cover",
+                    }}
+                    onError={(e) => {
+                      e.currentTarget.onerror = null;
+                      e.currentTarget.src = placeholder;
+                    }}
+                  />
 
                   <div className="d-flex justify-content-between">
                     <span className="text-body-secondary">Course</span>
@@ -216,8 +244,38 @@ function RecipeDetails() {
                     <span className="fw-semibold">{recipe.cuisine}</span>
                   </div>
 
+                  <div className="d-flex justify-content-between">
+                    <span className="text-body-secondary">Serves</span>
+                    <span className="fw-semibold">{recipe.servings}</span>
+                  </div>
+
+                  <div className="d-flex justify-content-between">
+                    <span className="text-body-secondary">Calories</span>
+                    <span className="fw-semibold">
+                      {recipe.calories ? recipe.calories : "N/A"}
+                    </span>
+                  </div>
+
                   <hr />
 
+                  <div className="d-flex justify-content-between">
+                    <span className="text-body-secondary">
+                      <i className="bi bi-basket me-2" />
+                      Prep time
+                    </span>
+                    <span className="fw-semibold">
+                      {formatTime(recipe.prepTime)}
+                    </span>
+                  </div>
+                  <div className="d-flex justify-content-between">
+                    <span className="text-body-secondary">
+                      <i className="bi bi-fire me-2" />
+                      Cook time
+                    </span>
+                    <span className="fw-semibold">
+                      {formatTime(recipe.cookTime)}
+                    </span>
+                  </div>
                   <div className="d-flex justify-content-between">
                     <span className="text-body-secondary">
                       <i className="bi bi-clock me-2" />
