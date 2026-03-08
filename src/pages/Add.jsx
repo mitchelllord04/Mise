@@ -130,34 +130,16 @@ function Add() {
     setIsSaving(true);
     setUploadProgress(0);
 
+    let recipeId = null;
+
     try {
-      let inferredCalories = form.calories;
-
-      if (inferredCalories === "") {
-        const response = await fetch("/api/inferCalories", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            ingredients: form.ingredients,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.calories != null) {
-          const adjustedCalories = data.calories * 0.93;
-          const roundedCalories = Math.round(adjustedCalories / 50) * 50;
-          inferredCalories = String(roundedCalories);
-        }
-      }
-
-      const recipeId = await addRecipe(user.uid, {
+      recipeId = await addRecipe(user.uid, {
         ...form,
         imageUrl: null,
         prepTime: form.prepTime ? Number(form.prepTime) : null,
         cookTime: form.cookTime ? Number(form.cookTime) : null,
         servings: form.servings ? Number(form.servings) : null,
-        calories: inferredCalories ? Number(inferredCalories) : null,
+        calories: form.calories ? Number(form.calories) : null,
       });
 
       if (imageFile) {
@@ -216,15 +198,36 @@ function Add() {
     } catch (err) {
       console.error(err);
       alert("Failed to save. Check console.");
-    } finally {
       setIsSaving(false);
+      return;
     }
-  };
 
-  const toTotalMinutes = (value, units) => {
-    const n = Number(value);
-    if (!Number.isFinite(n) || n < 0) return 0;
-    return units === "Hr" ? Math.round(n * 60) : Math.round(n);
+    setIsSaving(false);
+
+    if (!form.calories && recipeId) {
+      try {
+        const response = await fetch("/api/inferCalories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ingredients: form.ingredients,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.calories != null) {
+          const adjustedCalories = data.calories * 0.93;
+          const roundedCalories = Math.round(adjustedCalories / 50) * 50;
+
+          await updateRecipe(user.uid, recipeId, {
+            calories: roundedCalories,
+          });
+        }
+      } catch (err) {
+        console.error("Failed to infer calories:", err);
+      }
+    }
   };
 
   const splitMinutes = (total) => {
