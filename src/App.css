@@ -703,4 +703,5 @@ input[type="number"] {
   padding: 0.45rem 0.8rem;
   font-size: 0.92rem;
   font-weight: 500;
+  min-width: 3rem;
 }

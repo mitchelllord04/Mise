@@ -212,7 +212,7 @@ function View() {
                       </span>
                       <span className="recipe-tile-view-time">
                         <i class="bi bi-lightning-charge"></i>
-                        {r.calories === 0 ? "N/A" : r.calories}
+                        {r.calories ? r.calories : "—"}
                       </span>
                     </div>
                   </div>
