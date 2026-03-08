@@ -145,7 +145,9 @@ function Add() {
         const data = await response.json();
 
         if (response.ok && data.calories != null) {
-          inferredCalories = String(data.calories);
+          const adjustedCalories = data.calories * 0.9;
+          const roundedCalories = Math.round(adjustedCalories / 50) * 50;
+          inferredCalories = String(roundedCalories);
         }
       }
 
