@@ -241,12 +241,16 @@ function Home() {
         className="d-flex flex-column justify-content-center align-items-center text-center"
         style={{ minHeight: "70vh" }}
       >
+        <h1 className="home-page-greeting mb-4">
+          Welcome, {user?.displayName?.split(" ")[0] || "there"}!
+        </h1>
+
         <i className="bi bi-egg-fried mb-3" style={{ fontSize: "2.5rem" }} />
 
         <h4 className="mb-2">Nothing cooking right now</h4>
 
         <p className="text-body-secondary">
-          We couldn't fetch today's recipe suggestions. Check back in a moment.
+          We couldn't fetch today's recipe suggestions. Check back later.
         </p>
       </div>
     );
