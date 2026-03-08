@@ -167,47 +167,56 @@ function View() {
             {filteredRecipes.map((r) => (
               <div
                 key={r.id}
-                className="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center"
+                className="col-12 col-sm-6 col-lg-4 col-xl-3 my-3"
               >
-                <div
-                  className="card mb-4 recipe-card"
-                  style={{ width: "18rem" }}
+                <article
+                  className="recipe-tile-view"
                   onClick={() => navigate(`/details/${r.id}`)}
                 >
-                  <img
-                    src={r.imageUrl ? r.imageUrl : placeholder}
-                    className="card-img-top"
-                    alt="Recipe"
-                    style={{
-                      height: "200px",
-                      objectFit: "cover",
-                    }}
-                    onError={(e) => {
-                      e.currentTarget.onerror = null;
-                      e.currentTarget.src = placeholder;
-                    }}
-                  />
+                  <div className="recipe-tile-view-media">
+                    <img
+                      src={r.imageUrl ? r.imageUrl : placeholder}
+                      className="recipe-tile-view-image"
+                      alt="Recipe"
+                      onError={(e) => {
+                        e.currentTarget.onerror = null;
+                        e.currentTarget.src = placeholder;
+                      }}
+                    />
 
-                  <button
-                    className={`favorite-btn ${r.isFavorite ? "active" : ""}`}
-                    type="button"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      toggleFavorite(r);
-                    }}
-                  >
-                    <i
-                      className={`bi ${r.isFavorite ? "bi-heart-fill" : "bi-heart"}`}
-                    ></i>
-                  </button>
-                  <div className="card-body text-center d-flex flex-column">
-                    <p className="card-text mt-auto">{r.recipeName}</p>
-                    <p className="card-text">
-                      <i className="bi bi-clock mx-2" />
-                      {calculateTotalTime(r)}{" "}
-                    </p>
+                    <button
+                      className={`recipe-tile-view-favorite ${r.isFavorite ? "active" : ""}`}
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        toggleFavorite(r);
+                      }}
+                    >
+                      <i
+                        className={`bi ${r.isFavorite ? "bi-heart-fill" : "bi-heart"}`}
+                      ></i>
+                    </button>
                   </div>
-                </div>
+
+                  <div className="recipe-tile-view-body">
+                    <h3 className="recipe-tile-view-title">{r.recipeName}</h3>
+
+                    <div className="recipe-tile-view-meta">
+                      <span className="recipe-tile-view-time">
+                        <i className="bi bi-clock me-2"></i>
+                        {calculateTotalTime(r)}
+                      </span>
+                      <span className="recipe-tile-view-time mx-auto">
+                        <i class="bi bi-people-fill"></i>
+                        {r.servings}
+                      </span>
+                      <span className="recipe-tile-view-time">
+                        <i class="bi bi-lightning-charge"></i>
+                        {r.calories === 0 ? "N/A" : r.calories}
+                      </span>
+                    </div>
+                  </div>
+                </article>
               </div>
             ))}
           </div>

@@ -131,13 +131,31 @@ function Add() {
     setUploadProgress(0);
 
     try {
+      let inferredCalories = form.calories;
+
+      if (inferredCalories === "") {
+        const response = await fetch("/api/infer-calories", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ingredients: form.ingredients,
+          }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.calories != null) {
+          inferredCalories = String(data.calories);
+        }
+      }
+
       const recipeId = await addRecipe(user.uid, {
         ...form,
         imageUrl: null,
         prepTime: form.prepTime ? Number(form.prepTime) : null,
         cookTime: form.cookTime ? Number(form.cookTime) : null,
         servings: form.servings ? Number(form.servings) : null,
-        calories: form.calories ? Number(form.calories) : null,
+        calories: inferredCalories ? Number(inferredCalories) : null,
       });
 
       if (imageFile) {

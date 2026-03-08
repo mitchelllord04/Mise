@@ -177,12 +177,17 @@ function Home() {
     }
   };
 
+  const [randomRecipe, setRandomRecipe] = useState(null);
+  const generateRandomRecipe = async () => {
+    setRandomRecipe(await getRandomRecipe());
+  };
+
   useEffect(() => {
     async function loadSuggestedRecipes() {
       const today = new Date().toLocaleDateString("en-CA");
 
-      const storedRecipes = localStorage.getItem("recipesOfTheDay");
-      const storedRecipesDate = localStorage.getItem("recipesOfTheDayDate");
+      const storedRecipes = localStorage.getItem("recipesOfTheDay_5");
+      const storedRecipesDate = localStorage.getItem("recipesOfTheDayDate_5");
 
       if (storedRecipes && storedRecipesDate === today) {
         setRecipeSuggestions(JSON.parse(storedRecipes));
@@ -193,10 +198,12 @@ function Home() {
         getRandomRecipe(),
         getRandomRecipe(),
         getRandomRecipe(),
+        getRandomRecipe(),
+        getRandomRecipe(),
       ]);
 
-      localStorage.setItem("recipesOfTheDay", JSON.stringify(recipes));
-      localStorage.setItem("recipesOfTheDayDate", today);
+      localStorage.setItem("recipesOfTheDay_5", JSON.stringify(recipes));
+      localStorage.setItem("recipesOfTheDayDate_5", today);
 
       setRecipeSuggestions(recipes);
     }
@@ -219,8 +226,13 @@ function Home() {
       setTip(newTip);
     }
 
+    async function initializeRandomRecipe() {
+      setRandomRecipe(await getRandomRecipe());
+    }
+
     loadSuggestedRecipes();
     loadTip();
+    initializeRandomRecipe();
   }, []);
 
   if (recipeSuggestions.length === 0) {
@@ -237,73 +249,154 @@ function Home() {
   return (
     <>
       <div className="container py-5">
-        <div className="text-center mb-5">
-          <h1 className="mb-2">
-            Welcome, {user?.displayName?.split(" ")[0] || "there"}!
-          </h1>
+        <div className="container">
+          <div className="home-page-header">
+            <p className="home-page-greeting">
+              Welcome, {user?.displayName?.split(" ")[0] || "there"}!
+            </p>
+
+            <div className="recipes-hero-header">
+              <div>
+                <h1 className="recipes-hero-title">Recipes of the Day</h1>
+                <p className="recipes-hero-subtitle">
+                  Fresh ideas to cook tonight
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="recipes-showcase">
+            {recipeSuggestions.map((recipe, index) => (
+              <article
+                key={recipe.id}
+                className={`showcase-tile ${index === 0 ? "showcase-featured" : ""}`}
+                onClick={() => window.open(recipe.sourceUrl, "_blank")}
+              >
+                <img
+                  src={recipe.image || placeholder}
+                  alt={recipe.title}
+                  className="showcase-image"
+                  onError={(e) => {
+                    e.currentTarget.onerror = null;
+                    e.currentTarget.src = placeholder;
+                  }}
+                />
+
+                <div className="showcase-overlay">
+                  <div className="showcase-content">
+                    <div className="showcase-meta">
+                      <span className="showcase-time">
+                        <i className="bi bi-clock me-2" />
+                        {calculateTotalTime(recipe.readyInMinutes)}
+                      </span>
+                    </div>
+
+                    <h3 className="showcase-title">{recipe.title}</h3>
+
+                    <div className="showcase-actions">
+                      <button
+                        className="showcase-save"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleSaveSuggestedRecipe(recipe);
+                        }}
+                      >
+                        Save
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            ))}
+          </div>
         </div>
 
-        <div className="mb-5">
-          <h2 className="mb-4 text-center text-md-start">Recipes of the Day</h2>
+        <div className="home-lower-grid">
+          <section className="home-tip-panel">
+            <div className="home-tip-badge">
+              <i className="bi bi-lightbulb-fill"></i>
+            </div>
 
-          <div className="row g-4 justify-content-center">
-            {recipeSuggestions.map((recipe) => (
-              <div
-                key={recipe.id}
-                className="col-12 col-sm-6 col-md-4 d-flex justify-content-center"
+            <div className="home-tip-copy">
+              <p className="home-eyebrow">Daily tip</p>
+              <h3 className="home-section-title">Cooking Tip of the Day</h3>
+              <p className="home-tip-text">{tip}</p>
+            </div>
+          </section>
+
+          <section className="home-random-panel">
+            <div className="home-random-header">
+              <div>
+                <p className="home-eyebrow">Need inspiration?</p>
+                <h3 className="home-section-title">Try something unexpected</h3>
+              </div>
+
+              <button
+                className="home-random-btn"
+                onClick={generateRandomRecipe}
               >
-                <div
-                  className="card h-100 recipe-card"
-                  onClick={() => window.open(recipe.sourceUrl, "_blank")}
-                  style={{ width: "18rem" }}
-                >
+                <i className="bi bi-shuffle me-2"></i>
+                Random Recipe
+              </button>
+            </div>
+
+            {randomRecipe ? (
+              <article
+                className="home-random-card"
+                onClick={() => window.open(randomRecipe.sourceUrl, "_blank")}
+              >
+                <div className="home-random-media">
                   <img
-                    src={recipe.image || placeholder}
-                    className="card-img-top"
-                    alt="Recipe"
-                    style={{ height: "200px", objectFit: "cover" }}
+                    src={randomRecipe.image || placeholder}
+                    alt={randomRecipe.title}
+                    className="home-random-image"
                     onError={(e) => {
                       e.currentTarget.onerror = null;
                       e.currentTarget.src = placeholder;
                     }}
                   />
-
-                  <div className="card-body text-center d-flex flex-column">
-                    <p className="card-text mb-3" style={{ minHeight: "1rem" }}>
-                      {recipe.title}
-                    </p>
-
-                    <p className="card-text mt-auto mb-0 text-body-secondary">
-                      <i className="bi bi-clock me-2" />
-                      {calculateTotalTime(recipe.readyInMinutes)}
-                    </p>
-
-                    <button
-                      className="btn btn-outline-primary mt-3 mx-auto"
-                      style={{ maxWidth: "8rem" }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleSaveSuggestedRecipe(recipe);
-                      }}
-                    >
-                      Save
-                    </button>
-                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
 
-        <div className="row justify-content-center">
-          <div className="col-12 col-lg-8">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="mb-3">Cooking Tip of the Day</h5>
-                <p className="mb-0">{tip}</p>
-              </div>
-            </div>
-          </div>
+                <div className="home-random-body">
+                  <div className="home-random-meta">
+                    <span className="home-random-time">
+                      <i className="bi bi-clock me-2"></i>
+                      {calculateTotalTime(randomRecipe.readyInMinutes)}
+                    </span>
+                  </div>
+
+                  <h4 className="home-random-title">{randomRecipe.title}</h4>
+
+                  <button
+                    className="home-random-save"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSaveSuggestedRecipe(randomRecipe);
+                    }}
+                  >
+                    Save
+                  </button>
+                </div>
+              </article>
+            ) : (
+              <article
+                className="home-random-card home-random-empty"
+                onClick={() => window.open(randomRecipe.sourceUrl, "_blank")}
+              >
+                <div className="home-random-empty-content">
+                  <i className="bi bi-emoji-frown home-random-empty-icon"></i>
+
+                  <p className="home-random-empty-title">
+                    Sorry! Out of recipes for today.
+                  </p>
+
+                  <p className="home-random-empty-subtitle">
+                    Check back tomorrow for more inspiration.
+                  </p>
+                </div>
+              </article>
+            )}
+          </section>
         </div>
       </div>
     </>
