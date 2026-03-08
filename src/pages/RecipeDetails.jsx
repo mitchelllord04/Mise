@@ -159,7 +159,12 @@ function RecipeDetails() {
               >
                 Back
               </button>
-              <button className="btn btn-dark">Edit</button>
+              <button
+                className="btn btn-dark"
+                onClick={() => navigate(`/edit/${recipe.id}`)}
+              >
+                Edit
+              </button>
               <button
                 className="btn btn-outline-danger"
                 onClick={handleDelete}

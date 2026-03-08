@@ -76,6 +76,8 @@ function Add() {
 
   if (!user) return <h2>Not logged in</h2>;
 
+  const preventScrollChange = (e) => e.target.blur();
+
   const toggleTag = (tag) => {
     setForm((prev) => {
       const has = prev.tags.includes(tag);
@@ -538,6 +540,7 @@ function Add() {
                       value={form.servings}
                       type="number"
                       onChange={setField("servings")}
+                      onWheel={preventScrollChange}
                       placeholder="Servings"
                       inputMode="numeric"
                       required
@@ -553,6 +556,7 @@ function Add() {
                       value={form.calories}
                       type="number"
                       onChange={setField("calories")}
+                      onWheel={preventScrollChange}
                       placeholder="Calories"
                       inputMode="numeric"
                     />
