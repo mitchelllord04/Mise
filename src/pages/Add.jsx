@@ -134,7 +134,7 @@ function Add() {
       let inferredCalories = form.calories;
 
       if (inferredCalories === "") {
-        const response = await fetch("/api/infer-calories", {
+        const response = await fetch("/api/inferCalories", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
