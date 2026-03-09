@@ -241,7 +241,7 @@ function Home() {
         className="d-flex flex-column justify-content-center align-items-center text-center"
         style={{ minHeight: "70vh" }}
       >
-        <h1 className="home-page-greeting mb-4">
+        <h1 className="home-page-greeting mb-4 mt-0">
           Welcome, {user?.displayName?.split(" ")[0] || "there"}!
         </h1>
 
@@ -258,7 +258,7 @@ function Home() {
 
   return (
     <>
-      <div className="container py-5">
+      <div className="container pt-4 pb-5">
         <div className="container">
           <div className="home-page-header">
             <p className="home-page-greeting">

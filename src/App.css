@@ -2,6 +2,18 @@ html,
 body,
 #root {
   height: 100%;
+  background: #f5f5f5;
+  color: #1f2933;
+}
+
+.app-header {
+  background: #f5f5f5;
+  border: 1.5px solid #e5e5e5;
+}
+
+.app-footer {
+  background: #f5f5f5;
+  border: 1.5px solid #e5e5e5;
 }
 
 .app-shell {
@@ -516,6 +528,17 @@ input[type="number"] {
   box-shadow: 0 0.3rem 1rem rgba(0, 0, 0, 0.07);
 }
 
+.chatbot-box {
+  height: 40rem;
+  overflow-y: auto;
+}
+
+@media (max-width: 768px) {
+  .chatbot-box {
+    height: 18rem;
+  }
+}
+
 @media (max-width: 62rem) {
   .home-lower-grid {
     grid-template-columns: 1fr;
@@ -704,4 +727,83 @@ input[type="number"] {
   font-size: 0.92rem;
   font-weight: 500;
   min-width: 3rem;
+}
+
+.collapsing {
+  transition: height 0.15s ease !important;
+}
+
+.navbar-collapse-custom {
+  display: flex;
+}
+
+@media (max-width: 991.98px) {
+  .navbar {
+    position: relative;
+  }
+
+  .navbar-collapse-custom {
+    display: none;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    right: 0;
+    width: 14rem;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 0.75rem;
+    box-shadow: 0 0.75rem 2rem rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+  }
+
+  .navbar-collapse-custom.show {
+    display: block;
+  }
+
+  .navbar-collapse-custom .navbar-nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.2rem;
+    width: 100%;
+    margin: 0;
+    padding: 0.45rem;
+  }
+
+  .navbar-collapse-custom .nav-item {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  .navbar-collapse-custom .nav-link,
+  .navbar-collapse-custom .signout .nav-link {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.8rem 1rem !important;
+    border: 0;
+    border-radius: 0.6rem;
+    text-align: left;
+    line-height: 1.2;
+    box-sizing: border-box;
+  }
+
+  .navbar-collapse-custom .nav-link:hover,
+  .navbar-collapse-custom .signout .nav-link:hover {
+    background: #f5f5f5;
+  }
+
+  .navbar-collapse-custom .nav-link.active {
+    background: #f2f2f2;
+    font-weight: 600;
+  }
+
+  .nav-underline .nav-link,
+  .nav-underline .nav-link.active {
+    border-bottom: none !important;
+  }
+}
+
+.footer-link:hover {
+  font-weight: 500;
 }

@@ -16,6 +16,7 @@ import RecipeDetails from "./pages/RecipeDetails";
 import EditRecipe from "./pages/EditRecipe";
 
 import ProtectedRoute from "./routes/ProtectedRoute";
+import ScrollToTop from "./components/ScrollToTop";
 
 function AppLayout() {
   return (
@@ -31,6 +32,8 @@ function App() {
   return (
     <div className="d-flex flex-column min-vh-100">
       <main className="flex-fill">
+        <ScrollToTop />
+
         <Routes>
           <Route path="/" element={<Login />} />
           <Route path="/create-account" element={<CreateAccount />} />

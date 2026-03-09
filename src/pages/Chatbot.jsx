@@ -63,10 +63,7 @@ export default function Chatbot() {
         <div className="card-body">
           <h4 className="mb-3">Remy</h4>
 
-          <div
-            className="border rounded-3 p-3 mb-3"
-            style={{ height: 600, overflowY: "auto" }}
-          >
+          <div className="border rounded-3 p-3 mb-3 chatbot-box">
             {messages.map((m, i) => (
               <div
                 key={i}

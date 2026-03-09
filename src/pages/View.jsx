@@ -127,7 +127,7 @@ function View() {
   return (
     <>
       <div className="container py-4">
-        <h1 className="mb-5">My Recipes</h1>
+        <h1 className="mb-2 mt-3">My Recipes</h1>
       </div>
 
       <div className="container mb-3">
