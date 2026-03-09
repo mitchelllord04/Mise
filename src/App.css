@@ -7,13 +7,19 @@ body,
 }
 
 .app-header {
+  color: #1f2933;
   background: #f5f5f5;
   border: 1.5px solid #e5e5e5;
 }
 
 .app-footer {
+  color: #1f2933 !important;
   background: #f5f5f5;
   border: 1.5px solid #e5e5e5;
+}
+
+.app-footer a {
+  color: #1f2933 !important;
 }
 
 .app-shell {
@@ -35,7 +41,7 @@ input[type="number"] {
 }
 
 .nav-link {
-  color: black !important;
+  color: #1f2933 !important;
 }
 
 .nav-item {

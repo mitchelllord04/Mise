@@ -178,8 +178,11 @@ function Home() {
   };
 
   const [randomRecipe, setRandomRecipe] = useState(null);
+
   const generateRandomRecipe = async () => {
-    setRandomRecipe(await getRandomRecipe());
+    const recipe = await getRandomRecipe();
+    setRandomRecipe(recipe);
+    localStorage.setItem("persistentRandomRecipe", JSON.stringify(recipe));
   };
 
   useEffect(() => {
@@ -227,7 +230,16 @@ function Home() {
     }
 
     async function initializeRandomRecipe() {
-      setRandomRecipe(await getRandomRecipe());
+      const storedRandomRecipe = localStorage.getItem("persistentRandomRecipe");
+
+      if (storedRandomRecipe) {
+        setRandomRecipe(JSON.parse(storedRandomRecipe));
+        return;
+      }
+
+      const recipe = await getRandomRecipe();
+      setRandomRecipe(recipe);
+      localStorage.setItem("persistentRandomRecipe", JSON.stringify(recipe));
     }
 
     loadSuggestedRecipes();

@@ -1,7 +1,7 @@
 function Footer() {
   return (
     <footer className="text-center text-lg-start mt-auto app-footer fs-5">
-      <div className="footer text-center p-4 text-body-secondary">
+      <div className="footer text-center p-4">
         &copy; {new Date().getFullYear()} Mise. All rights reserved.
       </div>
 
@@ -11,7 +11,7 @@ function Footer() {
             href="https://github.com/mitchelllord04"
             target="_blank"
             rel="noreferrer"
-            className="text-body-secondary text-decoration-none footer-link"
+            className="text-decoration-none footer-link"
           >
             <i className="bi bi-github me-1" />
             GitHub
@@ -21,7 +21,7 @@ function Footer() {
             href="https://www.linkedin.com/in/mitchelllord-cs/"
             target="_blank"
             rel="noreferrer"
-            className="text-body-secondary text-decoration-none footer-link"
+            className="text-decoration-none footer-link"
           >
             <i className="bi bi-linkedin me-1" />
             LinkedIn
@@ -31,7 +31,7 @@ function Footer() {
             href="https://mitchell-lord.vercel.app/"
             target="_blank"
             rel="noreferrer"
-            className="text-body-secondary text-decoration-none footer-link"
+            className="text-decoration-none footer-link"
           >
             <i className="bi bi-briefcase me-1" />
             Portfolio

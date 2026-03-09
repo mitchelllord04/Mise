@@ -187,7 +187,7 @@ function RecipeDetails() {
         </div>
 
         <div className="row g-4">
-          <div className="col-12 col-lg-8">
+          <div className="col-12 col-lg-8 order-2 order-lg-1">
             <div className="card rounded-4 shadow-sm mb-4">
               <div className="card-body">
                 <h4 className="mb-3">Ingredients</h4>
@@ -216,7 +216,7 @@ function RecipeDetails() {
             </div>
           </div>
 
-          <div className="col-12 col-lg-4">
+          <div className="col-12 col-lg-4 order-1 order-lg-2">
             <div className="position-sticky" style={{ top: "1rem" }}>
               <div className="card rounded-4 shadow-sm">
                 <div className="card-body">
