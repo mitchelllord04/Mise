@@ -838,7 +838,7 @@ function Add() {
                     <div className="modal-footer">
                       <button
                         type="button"
-                        className="btn btn-secondary"
+                        className="btn btn-outline-secondary"
                         onClick={() => setInstructionFormOpen(false)}
                       >
                         Cancel

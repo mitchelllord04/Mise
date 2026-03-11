@@ -207,6 +207,14 @@ input[type="number"] {
     box-shadow 0.2s ease;
 }
 
+.save-btn {
+  background: "#1f2933";
+}
+
+.save-btn:hover {
+  opacity: 0.94;
+}
+
 .showcase-tile:hover {
   transform: translateY(-0.2rem);
   box-shadow: 0 1.2rem 2.5rem rgba(0, 0, 0, 0.14);
@@ -535,39 +543,13 @@ input[type="number"] {
 }
 
 .chatbot-box {
-  height: 55vh;
-  max-height: 40rem;
-  min-height: 16rem;
+  height: 40rem;
   overflow-y: auto;
 }
 
-@media (max-width: 64rem) {
+@media (max-width: 768px) {
   .chatbot-box {
-    height: 42vh;
-    min-height: 14rem;
-  }
-}
-
-.filter-modal-dialog {
-  max-width: 32rem;
-}
-
-@media (max-width: 48rem) {
-  .filter-modal-dialog {
-    max-width: 22rem;
-    margin: 1rem auto;
-  }
-
-  .filter-modal-dialog .modal-content {
-    max-height: 80vh;
-    overflow-y: auto;
-  }
-}
-
-@media (max-width: 48rem) {
-  .chatbot-box {
-    height: 36vh;
-    min-height: 12rem;
+    height: 18rem;
   }
 }
 
