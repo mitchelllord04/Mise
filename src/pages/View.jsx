@@ -224,7 +224,7 @@ function View() {
           {showFilters && (
             <>
               <div className="modal fade show d-block" tabIndex={-1}>
-                <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-dialog modal-dialog-centered filter-modal-dialog">
                   <div className="modal-content">
                     <div className="modal-header">
                       <h5 className="modal-title">Filter by</h5>

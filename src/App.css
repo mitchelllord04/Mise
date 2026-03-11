@@ -535,13 +535,39 @@ input[type="number"] {
 }
 
 .chatbot-box {
-  height: 40rem;
+  height: 55vh;
+  max-height: 40rem;
+  min-height: 16rem;
   overflow-y: auto;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 64rem) {
   .chatbot-box {
-    height: 18rem;
+    height: 42vh;
+    min-height: 14rem;
+  }
+}
+
+.filter-modal-dialog {
+  max-width: 32rem;
+}
+
+@media (max-width: 48rem) {
+  .filter-modal-dialog {
+    max-width: 22rem;
+    margin: 1rem auto;
+  }
+
+  .filter-modal-dialog .modal-content {
+    max-height: 80vh;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 48rem) {
+  .chatbot-box {
+    height: 36vh;
+    min-height: 12rem;
   }
 }
 

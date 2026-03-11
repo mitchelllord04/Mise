@@ -33,7 +33,9 @@ function Add() {
 
   const canAddIngredient =
     ingredient.name.trim().length > 0 &&
-    ingredient.quantity.toString().trim().length > 0;
+    (ingredient.units === "to taste"
+      ? true
+      : ingredient.quantity.toString().trim().length > 0);
 
   const [instructionFormOpen, setInstructionFormOpen] = useState(false);
   const [instruction, setInstruction] = useState("");
@@ -266,6 +268,10 @@ function Add() {
     const unit = String(ingredient.units ?? "").trim();
     const name = String(ingredient.name ?? "").trim();
 
+    if (unit === "to taste") {
+      return [name, unit].filter(Boolean).join(" ");
+    }
+
     const hiddenUnits = ["", "each"];
     const shownUnit = hiddenUnits.includes(unit) ? "" : unit;
 
@@ -374,7 +380,6 @@ function Add() {
                     <option>Breakfast</option>
                     <option>Lunch</option>
                     <option>Dinner</option>
-                    <option>Dessert</option>
                     <option>Snack</option>
                     <option>Drink</option>
                   </select>
@@ -412,6 +417,7 @@ function Add() {
                     <option>Salad</option>
                     <option>Soup</option>
                     <option>Sauce</option>
+                    <option>Dessert</option>
                     <option>Other</option>
                   </select>
                 </div>
@@ -764,6 +770,7 @@ function Add() {
 
                           <option disabled>Other</option>
                           <option value="bunch">bunch</option>
+                          <option value="handful">handful</option>
                           <option value="head">head</option>
                           <option value="pinch">pinch</option>
                           <option value="dash">dash</option>

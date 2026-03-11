@@ -257,7 +257,7 @@ function RecipeDetails() {
                   <div className="d-flex justify-content-between">
                     <span className="text-body-secondary">Calories</span>
                     <span className="fw-semibold">
-                      {recipe.calories ? recipe.calories : "N/A"}
+                      {recipe.calories ? recipe.calories : "—"}
                     </span>
                   </div>
 

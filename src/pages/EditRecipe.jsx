@@ -108,6 +108,10 @@ function EditRecipe() {
     const unit = String(ingredient.units ?? "").trim();
     const name = String(ingredient.name ?? "").trim();
 
+    if (unit === "to taste") {
+      return [name, unit].filter(Boolean).join(" ");
+    }
+
     const hiddenUnits = ["", "each"];
     const shownUnit = hiddenUnits.includes(unit) ? "" : unit;
 
@@ -116,7 +120,9 @@ function EditRecipe() {
 
   const canAddIngredient =
     ingredient.name.trim().length > 0 &&
-    ingredient.quantity.toString().trim().length > 0;
+    (ingredient.units === "to taste"
+      ? true
+      : ingredient.quantity.toString().trim().length > 0);
 
   const preventScrollChange = (e) => e.target.blur();
 
@@ -314,7 +320,7 @@ function EditRecipe() {
       >
         <div
           className="text-center p-4 shadow rounded-4 bg-light"
-          style={{ maxWidth: "500px", width: "100%" }}
+          style={{ maxWidth: "31.25rem", width: "100%" }}
         >
           <h2 className="mb-3">Something went wrong</h2>
           <p className="text-muted mb-4">Please try again.</p>
@@ -397,7 +403,7 @@ function EditRecipe() {
                 <span className="fw-semibold">
                   <input
                     className="form-control d-inline-block ms-1"
-                    style={{ maxWidth: "250px" }}
+                    style={{ maxWidth: "15.625rem" }}
                     value={form.authorName}
                     onChange={(e) =>
                       setForm({ ...form, authorName: e.target.value })
@@ -577,7 +583,7 @@ function EditRecipe() {
                     className="card-img-top mb-3"
                     alt="Recipe"
                     style={{
-                      height: "200px",
+                      height: "12.5rem",
                       objectFit: "cover",
                     }}
                     onError={(e) => {
@@ -598,38 +604,61 @@ function EditRecipe() {
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
                     <span className="text-body-secondary">Course</span>
-                    <input
-                      className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                    <select
+                      className="form-select text-end"
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.course}
                       onChange={(e) =>
                         setForm({ ...form, course: e.target.value })
                       }
-                    />
+                    >
+                      <option>Main</option>
+                      <option>Side</option>
+                      <option>Appetizer</option>
+                      <option>Salad</option>
+                      <option>Soup</option>
+                      <option>Sauce</option>
+                      <option>Dessert</option>
+                      <option>Other</option>
+                    </select>
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
                     <span className="text-body-secondary">Type</span>
-                    <input
-                      className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                    <select
+                      className="form-select text-end"
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.mealType}
                       onChange={(e) =>
                         setForm({ ...form, mealType: e.target.value })
                       }
-                    />
+                    >
+                      <option>Breakfast</option>
+                      <option>Lunch</option>
+                      <option>Dinner</option>
+                      <option>Snack</option>
+                      <option>Drink</option>
+                    </select>
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
                     <span className="text-body-secondary">Cuisine</span>
-                    <input
-                      className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                    <select
+                      className="form-select text-end"
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.cuisine}
                       onChange={(e) =>
                         setForm({ ...form, cuisine: e.target.value })
                       }
-                    />
+                    >
+                      <option>Southern</option>
+                      <option>Mexican</option>
+                      <option>Chinese</option>
+                      <option>Japanese</option>
+                      <option>Italian</option>
+                      <option>French</option>
+                      <option>Other</option>
+                    </select>
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
@@ -637,7 +666,7 @@ function EditRecipe() {
                     <input
                       type="number"
                       className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.servings}
                       onChange={(e) =>
                         setForm({ ...form, servings: e.target.value })
@@ -651,7 +680,7 @@ function EditRecipe() {
                     <input
                       type="number"
                       className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.calories}
                       onChange={(e) =>
                         setForm({ ...form, calories: e.target.value })
@@ -670,7 +699,7 @@ function EditRecipe() {
                     <input
                       type="number"
                       className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.prepTime}
                       onChange={(e) =>
                         setForm({ ...form, prepTime: e.target.value })
@@ -687,7 +716,7 @@ function EditRecipe() {
                     <input
                       type="number"
                       className="form-control text-end"
-                      style={{ maxWidth: "180px" }}
+                      style={{ maxWidth: "11.25rem" }}
                       value={form.cookTime}
                       onChange={(e) =>
                         setForm({ ...form, cookTime: e.target.value })
@@ -796,6 +825,7 @@ function EditRecipe() {
                         <option value="package">package</option>
                         <option value="bunch">bunch</option>
                         <option value="head">head</option>
+                        <option value="handful">handful</option>
                         <option value="pinch">pinch</option>
                         <option value="dash">dash</option>
                         <option value="to taste">to taste</option>

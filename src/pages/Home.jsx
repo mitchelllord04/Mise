@@ -76,11 +76,10 @@ function Home() {
 
       if (lower.includes("lunch")) return "Lunch";
       if (lower.includes("dinner")) return "Dinner";
-      if (lower.includes("dessert")) return "Dessert";
       if (lower.includes("snack")) return "Snack";
       if (lower.includes("drink") || lower.includes("beverage")) return "Drink";
 
-      return "Dinner";
+      return "Other";
     };
 
     const courseFromDishTypes = (dishTypes = []) => {
@@ -92,8 +91,9 @@ function Home() {
       if (lower.includes("salad")) return "Salad";
       if (lower.includes("soup")) return "Soup";
       if (lower.includes("sauce")) return "Sauce";
+      if (lower.includes("dessert")) return "Dessert";
 
-      return "Main";
+      return "Other";
     };
 
     const buildTags = (spoon) => {
@@ -148,7 +148,7 @@ function Home() {
       ingredients,
       instructions,
       isFavorite: false,
-      imageUrl: spoon.image || "",
+      imageUrl: spoon.image || placeholder,
       sourceUrl: spoon.sourceUrl || "",
       spoonacularId: spoon.id,
     };
