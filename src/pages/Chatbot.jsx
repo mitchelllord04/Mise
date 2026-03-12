@@ -12,9 +12,17 @@ export default function Chatbot() {
   const [thinking, setThinking] = useState(false);
   const bottomRef = useRef(null);
 
+  const didMount = useRef(false);
+
   useEffect(() => {
+    if (!didMount.current) {
+      didMount.current = true;
+      window.scrollTo(0, 0);
+      return;
+    }
+
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages, thinking]);
+  }, [messages]);
 
   const send = async () => {
     const q = text.trim();
