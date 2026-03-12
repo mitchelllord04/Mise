@@ -342,7 +342,7 @@ function Add() {
         <form id="add-recipe-form" onSubmit={handleSubmit}>
           <div className="card mb-3">
             <div className="card-body">
-              <h5 className="card-title mb-3">Identity</h5>
+              <h5 className="card-title mb-3">Recipe Info</h5>
 
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -501,7 +501,7 @@ function Add() {
 
           <div className="card mb-3">
             <div className="card-body">
-              <h5 className="card-title mb-3">Logistics</h5>
+              <h5 className="card-title mb-3">Cooking Info</h5>
 
               <div className="row">
                 <div className="col-md-6 mb-3">
@@ -829,7 +829,7 @@ function Add() {
                       <label className="mb-2"> Instruction </label>
                       <input
                         className="form-control mb-3"
-                        placeholder="e.g. Boil the noodles"
+                        placeholder="e.g. Preheat oven to 375°F"
                         value={instruction}
                         onChange={(e) => changeInstruction(e.target.value)}
                       />

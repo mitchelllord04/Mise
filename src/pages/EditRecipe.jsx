@@ -433,7 +433,7 @@ function EditRecipe() {
 
                 <button
                   type="button"
-                  className="btn btn-outline-dark btn-sm"
+                  className="btn btn-outline-primary btn-sm"
                   onClick={() => setTagsOpen(true)}
                 >
                   Edit Tags
@@ -443,13 +443,13 @@ function EditRecipe() {
 
             <div className="d-flex gap-2">
               <button
-                className="btn btn-outline-dark"
+                className="btn btn-outline-secondary"
                 onClick={() => navigate(`/details/${recipeId}`)}
               >
                 Back
               </button>
               <button
-                className="btn btn-dark"
+                className="btn btn-primary"
                 onClick={handleSave}
                 disabled={saving}
               >
@@ -477,14 +477,14 @@ function EditRecipe() {
         </div>
 
         <div className="row g-4">
-          <div className="col-12 col-lg-8">
+          <div className="col-12 col-lg-8 order-2 order-lg-1">
             <div className="card rounded-4 shadow-sm mb-4">
               <div className="card-body">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                   <h4 className="mb-0">Ingredients</h4>
                   <button
                     type="button"
-                    className="btn btn-dark btn-sm"
+                    className="btn btn-primary btn-sm"
                     onClick={() => setIngredientFormOpen(true)}
                   >
                     Add Ingredient
@@ -529,7 +529,7 @@ function EditRecipe() {
                   <h4 className="mb-0">Instructions</h4>
                   <button
                     type="button"
-                    className="btn btn-dark btn-sm"
+                    className="btn btn-primary btn-sm"
                     onClick={() => setInstructionFormOpen(true)}
                   >
                     Add Step
@@ -574,7 +574,7 @@ function EditRecipe() {
             </div>
           </div>
 
-          <div className="col-12 col-lg-4">
+          <div className="col-12 col-lg-4 order-1 order-lg-2">
             <div className="position-sticky" style={{ top: "1rem" }}>
               <div className="card rounded-4 shadow-sm">
                 <div className="card-body">
@@ -603,7 +603,10 @@ function EditRecipe() {
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
-                    <span className="text-body-secondary">Course</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-egg-fried me-2" />
+                      Course
+                    </span>
                     <select
                       className="form-select text-end"
                       style={{ maxWidth: "11.25rem" }}
@@ -624,7 +627,10 @@ function EditRecipe() {
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
-                    <span className="text-body-secondary">Type</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-fork-knife me-2" />
+                      Type
+                    </span>
                     <select
                       className="form-select text-end"
                       style={{ maxWidth: "11.25rem" }}
@@ -642,7 +648,10 @@ function EditRecipe() {
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
-                    <span className="text-body-secondary">Cuisine</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-globe-americas me-2" />
+                      Cuisine
+                    </span>
                     <select
                       className="form-select text-end"
                       style={{ maxWidth: "11.25rem" }}
@@ -662,7 +671,10 @@ function EditRecipe() {
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
-                    <span className="text-body-secondary">Serves</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-people-fill me-2" />
+                      Serves
+                    </span>
                     <input
                       type="number"
                       className="form-control text-end"
@@ -676,7 +688,10 @@ function EditRecipe() {
                   </div>
 
                   <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
-                    <span className="text-body-secondary">Calories</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-lightning-fill me-2" />
+                      Calories
+                    </span>
                     <input
                       type="number"
                       className="form-control text-end"
@@ -843,7 +858,7 @@ function EditRecipe() {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-dark"
+                      className="btn btn-primary"
                       disabled={!canAddIngredient}
                       onClick={handleAddIngredient}
                     >
@@ -899,7 +914,7 @@ function EditRecipe() {
                     </button>
                     <button
                       type="button"
-                      className="btn btn-dark"
+                      className="btn btn-primary"
                       onClick={handleAddInstruction}
                     >
                       Add

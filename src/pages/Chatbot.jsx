@@ -121,7 +121,11 @@ export default function Chatbot() {
               }}
               placeholder="Ask about recipes, nutrition, cooking, or meal ideas"
             />
-            <button className="btn btn-dark" onClick={send} disabled={thinking}>
+            <button
+              className="btn btn-primary"
+              onClick={send}
+              disabled={thinking}
+            >
               Send
             </button>
           </div>

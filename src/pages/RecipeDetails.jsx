@@ -160,7 +160,7 @@ function RecipeDetails() {
                 Back
               </button>
               <button
-                className="btn btn-dark"
+                className="btn btn-primary"
                 onClick={() => navigate(`/edit/${recipe.id}`)}
               >
                 Edit
@@ -235,27 +235,42 @@ function RecipeDetails() {
                   />
 
                   <div className="d-flex justify-content-between">
-                    <span className="text-body-secondary">Course</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-egg-fried me-2" />
+                      Course
+                    </span>
                     <span className="fw-semibold">{recipe.course}</span>
                   </div>
 
                   <div className="d-flex justify-content-between">
-                    <span className="text-body-secondary">Type</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-fork-knife me-2" />
+                      Type
+                    </span>
                     <span className="fw-semibold">{recipe.mealType}</span>
                   </div>
 
                   <div className="d-flex justify-content-between">
-                    <span className="text-body-secondary">Cuisine</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-globe-americas me-2" />
+                      Cuisine
+                    </span>
                     <span className="fw-semibold">{recipe.cuisine}</span>
                   </div>
 
                   <div className="d-flex justify-content-between">
-                    <span className="text-body-secondary">Serves</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-people-fill me-2" />
+                      Serves
+                    </span>
                     <span className="fw-semibold">{recipe.servings}</span>
                   </div>
 
                   <div className="d-flex justify-content-between">
-                    <span className="text-body-secondary">Calories</span>
+                    <span className="text-body-secondary">
+                      <i className="bi bi-lightning-fill me-2" />
+                      Calories
+                    </span>
                     <span className="fw-semibold">
                       {recipe.calories ? recipe.calories : "—"}
                     </span>
