@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useAuth } from "../context/useAuth";
-import { getRecipes } from "../services/recipes";
+import { getRecipes, deleteRecipe } from "../services/recipes";
 import { useNavigate } from "react-router-dom";
 import { updateRecipe } from "../services/recipes";
 
@@ -10,6 +10,9 @@ function View() {
   // Authentication and loading status
   const { user, loading } = useAuth();
   const [pageLoading, setPageLoading] = useState(true);
+
+  const menuRef = useRef(null);
+  const [deleting, setDeleting] = useState(false);
 
   // User recipe data
   const [recipes, setRecipes] = useState([]);
@@ -22,6 +25,7 @@ function View() {
   const [courseFilter, setCourseFilter] = useState("All");
   const [tagsFilter, setTagsFilter] = useState([]);
   const [search, setSearch] = useState("");
+  const [menuOpen, setMenuOpen] = useState(null);
 
   // Set filters once they are selected in the modal
   const typeSelect = (e) => setMealTypeFilter(e.target.value);
@@ -77,6 +81,20 @@ function View() {
   };
 
   useEffect(() => {
+    function handleClickOutside(e) {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  useEffect(() => {
     async function load() {
       if (!user) return;
 
@@ -96,6 +114,23 @@ function View() {
 
     load();
   }, [user]);
+
+  async function handleDelete(recipeId) {
+    if (!user) return;
+    if (!window.confirm("Delete this recipe?")) return;
+
+    try {
+      setDeleting(true);
+      await deleteRecipe(user.uid, recipeId);
+      setRecipes((prev) => prev.filter((r) => r.id !== recipeId));
+      setMenuOpen(null);
+    } catch (err) {
+      console.error(err);
+      alert("Failed to delete recipe.");
+    } finally {
+      setDeleting(false);
+    }
+  }
 
   if (loading || pageLoading) {
     return (
@@ -185,6 +220,51 @@ function View() {
                     />
 
                     <button
+                      className="recipe-tile-view-options"
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setMenuOpen((prev) => (prev === r.id ? null : r.id));
+                      }}
+                    >
+                      <i className="bi bi-three-dots-vertical"></i>
+                    </button>
+
+                    {menuOpen === r.id && (
+                      <div
+                        ref={menuRef}
+                        className="recipe-tile-view-dropdown"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <button
+                          type="button"
+                          className="recipe-tile-view-dropdown-item"
+                          onClick={() => navigate(`/edit/${r.id}`)}
+                        >
+                          Edit
+                        </button>
+
+                        <button
+                          type="button"
+                          className="recipe-tile-view-dropdown-item"
+                          onClick={() => handleDelete(r.id)}
+                        >
+                          {deleting ? (
+                            <span className="d-inline-flex align-items-center gap-2">
+                              <span
+                                className="spinner-border spinner-border-sm"
+                                role="status"
+                              />
+                              Deleting…
+                            </span>
+                          ) : (
+                            "Delete"
+                          )}
+                        </button>
+                      </div>
+                    )}
+
+                    <button
                       className={`recipe-tile-view-favorite ${r.isFavorite ? "active" : ""}`}
                       type="button"
                       onClick={(e) => {
@@ -207,11 +287,11 @@ function View() {
                         {calculateTotalTime(r)}
                       </span>
                       <span className="recipe-tile-view-time mx-auto">
-                        <i class="bi bi-people-fill"></i>
+                        <i className="bi bi-people-fill"></i>
                         {r.servings}
                       </span>
                       <span className="recipe-tile-view-time">
-                        <i class="bi bi-lightning-charge"></i>
+                        <i className="bi bi-lightning-charge"></i>
                         {r.calories ? r.calories : "—"}
                       </span>
                     </div>

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { addRecipe, updateRecipe } from "../services/recipes";
 import { useAuth } from "../context/useAuth";
 import DurationPicker from "../components/DurationPicker";
@@ -7,6 +8,7 @@ import { storage } from "../firebase";
 
 function Add() {
   const { user, loading } = useAuth();
+  const navigate = useNavigate();
 
   const [form, setForm] = useState({
     recipeName: "",
@@ -199,6 +201,8 @@ function Add() {
       setFileInputKey((k) => k + 1);
 
       alert("Recipe successfully saved!");
+
+      navigate(`/details/${recipeId}`);
     } catch (err) {
       console.error(err);
       alert("Failed to save. Check console.");
